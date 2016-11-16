@@ -51,9 +51,12 @@ func (q *Queue) add(i int) {
   }
 }
 
-func (q Queue) pop() Queue {
-  q = *q.next
-  return q
+
+// Is this hacky?  I don't know anymore.
+// Could just pass by reference because the list is by reference.
+func (q *Queue) pop() {
+  q.value = q.next.value
+  q.next = q.next.next
 }
 
 func (q *Queue) print() {
@@ -69,8 +72,8 @@ func main() {
   q.add(3)
   q.add(4)
   q.print()
-  q = q.pop()
-  q = q.pop()
+  q.pop()
+  q.pop()
   q.print()
   fmt.Println("Stacks on stacks")
   s := Stack{value: 1}
